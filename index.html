@@ -114,29 +114,29 @@
 
         <label for="kit">Kit: 🎒</label>
         <select id="kit" name="kit">
-    <option value="Classic">Classic 🕹️</option>
-    <option value="Snowball">Snowball ❄️</option>
-    <option value="Tag">Tag 🏷️</option>
-    <option value="dont look down">Don't Look Down 🕹️</option>
-    <option value="Hidden Mode">Hidden Mode 🕹️</option>
-    <option value="Capture The Flag">Capture The Flag 🚩</option>
-    <option value="Fishtopia">Fishtopia 🐠</option>
-    <option value="One Way Out">One Way Out 🚪</option>
-    <option value="Color Clash">Color Clash 🎨</option>
-    <option value="Knockback">Knockback 🥊</option>
-    <option value="Apocalypse">Apocalypse ☢️</option>
-    <option value="Dig It Up">Dig It Up ⛏️</option>
-    <option value="Snowy Survival">Snowy Survival ☃️</option>
-    <option value="Blastball">Blastball 💣</option>
-    <option value="Farmchain">Farmchain 🚜</option>
-    <option value="Tag: Domination">Tag: Domination 👑</option>
-    <option value="2D game">2D Game 🎮</option>
-</select>
+            <option value="Classic">Classic 🕹️</option>
+            <option value="Snowball">Snowball ❄️</option>
+            <option value="Tag">Tag 🏷️</option>
+            <option value="dont look down">Don't Look Down 🕹️</option>
+            <option value="Hidden Mode">Hidden Mode 🕹️</option>
+            <option value="Capture The Flag">Capture The Flag 🚩</option>
+            <option value="Fishtopia">Fishtopia 🐠</option>
+            <option value="One Way Out">One Way Out 🚪</option>
+            <option value="Color Clash">Color Clash 🎨</option>
+            <option value="Knockback">Knockback 🥊</option>
+            <option value="Apocalypse">Apocalypse ☢️</option>
+            <option value="Dig It Up">Dig It Up ⛏️</option>
+            <option value="Snowy Survival">Snowy Survival ☃️</option>
+            <option value="Blastball">Blastball 💣</option>
+            <option value="Farmchain">Farmchain 🚜</option>
+            <option value="Tag: Domination">Tag: Domination 👑</option>
+            <option value="2D game">2D Game 🎮</option>
+        </select>
 
         <label for="duration">Duration (minutes): ⏱️</label>
         <input type="number" id="duration" name="duration" required>
 
-        <button type="button" onclick="createServer()">Create Server ✅🚀</button>
+        <button type="button" onclick="window.createServer()">Create Server ✅🚀</button>
     </form>
 
     <h2>Active Servers 🌐👀</h2>
@@ -147,25 +147,24 @@
     <button id="testButton">Test Firestore 🧪🔬</button>
 
     <script type="module">
-        // ... (Your Firebase initialization and other JavaScript code here) ...
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
         const firebaseConfig = {
-              apiKey: "AIzaSyA9oJ0Ax7xNNAReuDz9Msn4kuLRTxNo2kc",
-              authDomain: "gimkit-312b0.firebaseapp.com",
-              projectId: "gimkit-312b0",
-              storageBucket: "gimkit-312b0.firebasestorage.app",
-              messagingSenderId: "657884664755",
-              appId: "1:657884664755:web:86ccedd115e61aa592f1c6",
-              measurementId: "G-MYTLQGBQD4"
+            apiKey: "AIzaSyA9oJ0Ax7xNNAReuDz9Msn4kuLRTxNo2kc",
+            authDomain: "gimkit-312b0.firebaseapp.com",
+            projectId: "gimkit-312b0",
+            storageBucket: "gimkit-312b0.firebasestorage.app",
+            messagingSenderId: "657884664755",
+            appId: "1:657884664755:web:86ccedd115e61aa592f1c6",
+            measurementId: "G-MYTLQGBQD4"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Corrected: Attach createServer to window
         window.createServer = async function() {
-            // ... (Your createServer function here) ...
             const gameCode = document.getElementById("gameCode").value;
             const kit = document.getElementById("kit").value;
             const duration = parseInt(document.getElementById("duration").value);
@@ -190,7 +189,6 @@
         };
 
         function displayActiveServers() {
-            // ... (Your displayActiveServers function here) ...
             const serversCollection = collection(db, "servers");
             const q = query(serversCollection, where("active", "==", true));
 
@@ -201,31 +199,12 @@
                 snapshot.forEach((doc) => {
                     const serverData = doc.data();
                     const newServer = document.createElement("li");
-                    newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy per qestion: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️</div>`;
-                    serverList.appendChild(newServer);
-                });
-            });
-        }
-
-function displayActiveServers() {
-    const serversCollection = collection(db, "servers");
-    const q = query(serversCollection, where("active", "==", true));
-
-    onSnapshot(q, (snapshot) => {
-        const serverList = document.getElementById("activeServerList");
-        serverList.innerHTML = "";
-
-        snapshot.forEach((doc) => {
-            const serverData = doc.data();
-            const newServer = document.createElement("li");
-            // Display the timestamp
-            const createdAtDate = serverData.createdAt.toDate(); // Convert to JavaScript Date
-            const formattedDate = createdAtDate.toLocaleString(); // Format the date
-            newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy per question: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️, Created At: ${formattedDate}</div>`;
-            serverList.appendChild(newServer);
-        });
-    });
-}
-    </script>
+                    // Display the timestamp
+                    const createdAtDate = serverData.createdAt.toDate();
+                    const formattedDate = createdAtDate.toLocaleString();
+                    newServer.innerHTML = `<div class="server-details">Game Code: ${server});
+                                                                                          
+    }
+  </script>
 </body>
 </html>
