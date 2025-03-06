@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gimkit Server Creator</title>
+    <title>Gimkit Server maker</title>
     <style>
         body {
             font-family: sans-serif;
@@ -92,15 +92,16 @@
         import { getFirestore, collection, addDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY", // Replace with your API key
-            authDomain: "YOUR_AUTH_DOMAIN", // Replace with your auth domain
-            projectId: "YOUR_PROJECT_ID", // Replace with your project ID
-            storageBucket: "YOUR_STORAGE_BUCKET.appspot.com", // Replace with your storage bucket, example: your-project-id.appspot.com
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Replace with your sender ID
-            appId: "YOUR_APP_ID", // Replace with your app ID
-            measurementId: "YOUR_MEASUREMENT_ID" // Replace with your measurement ID
-        };
+              apiKey: "AIzaSyA9oJ0Ax7xNNAReuDz9Msn4kuLRTxNo2kc",
+              authDomain: "gimkit-312b0.firebaseapp.com",
+              projectId: "gimkit-312b0",
+              storageBucket: "gimkit-312b0.firebasestorage.app",
+              messagingSenderId: "657884664755",
+              appId: "1:657884664755:web:86ccedd115e61aa592f1c6",
+              measurementId: "G-MYTLQGBQD4"
 
+        };
+            
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
