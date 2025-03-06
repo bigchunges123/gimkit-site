@@ -3,139 +3,13 @@
 <head>
     <title>Gimkit Server Creator 🎮✨</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 20px;
-            background-color: #f8f8f8;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        h1 {
-            text-align: center;
-            color: #007bff;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        form {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: calc(100% - 22px);
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 15px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        #serverList {
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            font-size: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        li:last-child {
-            border-bottom: none;
-        }
-
-        #testButton {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-size: 16px;
-        }
-
-        .server-details {
-            flex-grow: 1;
-        }
-
+        /* ... (Your CSS styles) ... */
     </style>
 </head>
 <body>
     <h1>Gimkit Server Creator made by sam 🎮✨</h1>
 
     <form id="serverForm">
-        <label for="gameCode">Game Code: 🔑</label>
-        <input type="text" id="gameCode" name="gameCode" required>
-
-        <label for="energyGame">Energy per question: ⚡</label>
-        <input type="text" id="energyGame" name="energyGame" required>
-
-        <label for="kit">Kit: 🎒</label>
-        <select id="kit" name="kit">
-            <option value="Classic">Classic 🕹️</option>
-            <option value="Snowball">Snowball ❄️</option>
-            <option value="Tag">Tag 🏷️</option>
-            <option value="dont look down">Don't Look Down 🕹️</option>
-            <option value="Hidden Mode">Hidden Mode 🕹️</option>
-            <option value="Capture The Flag">Capture The Flag 🚩</option>
-            <option value="Fishtopia">Fishtopia 🐠</option>
-            <option value="One Way Out">One Way Out 🚪</option>
-            <option value="Color Clash">Color Clash 🎨</option>
-            <option value="Knockback">Knockback 🥊</option>
-            <option value="Apocalypse">Apocalypse ☢️</option>
-            <option value="Dig It Up">Dig It Up ⛏️</option>
-            <option value="Snowy Survival">Snowy Survival ☃️</option>
-            <option value="Blastball">Blastball 💣</option>
-            <option value="Farmchain">Farmchain 🚜</option>
-            <option value="Tag: Domination">Tag: Domination 👑</option>
-            <option value="2D game">2D Game 🎮</option>
-        </select>
-
-        <label for="duration">Duration (minutes): ⏱️</label>
-        <input type="number" id="duration" name="duration" required>
-
         <button type="button" onclick="window.createServer()">Create Server ✅🚀</button>
     </form>
 
@@ -163,7 +37,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Corrected: Attach createServer to window
         window.createServer = async function() {
             const gameCode = document.getElementById("gameCode").value;
             const kit = document.getElementById("kit").value;
@@ -199,11 +72,26 @@
                 snapshot.forEach((doc) => {
                     const serverData = doc.data();
                     const newServer = document.createElement("li");
-                    // Display the timestamp
                     const createdAtDate = serverData.createdAt.toDate();
                     const formattedDate = createdAtDate.toLocaleString();
-                    newServer.innerHTML = `<div class="server-details">Game Code: ${server});
-                                                                                          
-    }
+                    newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy per question: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️, Created At: ${formattedDate}</div>`;
+                    serverList.appendChild(newServer);
+                });
+            });
+        }
+
+        displayActiveServers();
+
+        document.getElementById("testButton").addEventListener("click", async () => {
+            try {
+                await addDoc(collection(db, "testCollection"), {
+                    testField: "Test Value 🧪"
+                });
+                console.log("Test document added successfully.");
+            } catch (error) {
+                console.error("Error adding test document:", error);
+            }
+        });
+    </script>
 </body>
 </html>
