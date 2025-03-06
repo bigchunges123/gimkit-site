@@ -207,18 +207,25 @@
             });
         }
 
-        displayActiveServers();
+function displayActiveServers() {
+    const serversCollection = collection(db, "servers");
+    const q = query(serversCollection, where("active", "==", true));
 
-        document.getElementById("testButton").addEventListener("click", async () => {
-            try {
-                await addDoc(collection(db, "testCollection"), {
-                    testField: "Test Value 🧪"
-                });
-                console.log("Test document added successfully.");
-            } catch (error) {
-                console.error("Error adding test document:", error);
-            }
+    onSnapshot(q, (snapshot) => {
+        const serverList = document.getElementById("activeServerList");
+        serverList.innerHTML = "";
+
+        snapshot.forEach((doc) => {
+            const serverData = doc.data();
+            const newServer = document.createElement("li");
+            // Display the timestamp
+            const createdAtDate = serverData.createdAt.toDate(); // Convert to JavaScript Date
+            const formattedDate = createdAtDate.toLocaleString(); // Format the date
+            newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy per question: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️, Created At: ${formattedDate}</div>`;
+            serverList.appendChild(newServer);
         });
+    });
+}
     </script>
 </body>
 </html>
