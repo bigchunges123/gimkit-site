@@ -201,7 +201,7 @@
                 snapshot.forEach((doc) => {
                     const serverData = doc.data();
                     const newServer = document.createElement("li");
-                    newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy Game Code: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️</div>`;
+                    newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy per qestion: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️</div>`;
                     serverList.appendChild(newServer);
                 });
             });
