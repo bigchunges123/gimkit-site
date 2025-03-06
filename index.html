@@ -103,7 +103,7 @@
     </style>
 </head>
 <body>
-    <h1>Gimkit Server Creator 🎮✨</h1>
+    <h1>Gimkit Server Creator made by sam 🎮✨</h1>
 
     <form id="serverForm">
         <label for="gameCode">Game Code: 🔑</label>
@@ -114,10 +114,24 @@
 
         <label for="kit">Kit: 🎒</label>
         <select id="kit" name="kit">
-            <option value="Classic">Classic 🕹️</option>
-            <option value="Snowball">Snowball ❄️</option>
-            <option value="Tag">Tag 🏷️</option>
-        </select>
+    <option value="Classic">Classic 🕹️</option>
+    <option value="Snowball">Snowball ❄️</option>
+    <option value="Tag">Tag 🏷️</option>
+    <option value="dont look down">Don't Look Down 🕹️</option>
+    <option value="Hidden Mode">Hidden Mode 🕹️</option>
+    <option value="Capture The Flag">Capture The Flag 🚩</option>
+    <option value="Fishtopia">Fishtopia 🐠</option>
+    <option value="One Way Out">One Way Out 🚪</option>
+    <option value="Color Clash">Color Clash 🎨</option>
+    <option value="Knockback">Knockback 🥊</option>
+    <option value="Apocalypse">Apocalypse ☢️</option>
+    <option value="Dig It Up">Dig It Up ⛏️</option>
+    <option value="Snowy Survival">Snowy Survival ☃️</option>
+    <option value="Blastball">Blastball 💣</option>
+    <option value="Farmchain">Farmchain 🚜</option>
+    <option value="Tag: Domination">Tag: Domination 👑</option>
+    <option value="2D game">2D Game 🎮</option>
+</select>
 
         <label for="duration">Duration (minutes): ⏱️</label>
         <input type="number" id="duration" name="duration" required>
@@ -138,13 +152,13 @@
         import { getFirestore, collection, addDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID",
-            measurementId: "YOUR_MEASUREMENT_ID"
+              apiKey: "AIzaSyA9oJ0Ax7xNNAReuDz9Msn4kuLRTxNo2kc",
+              authDomain: "gimkit-312b0.firebaseapp.com",
+              projectId: "gimkit-312b0",
+              storageBucket: "gimkit-312b0.firebasestorage.app",
+              messagingSenderId: "657884664755",
+              appId: "1:657884664755:web:86ccedd115e61aa592f1c6",
+              measurementId: "G-MYTLQGBQD4"
         };
 
         const app = initializeApp(firebaseConfig);
