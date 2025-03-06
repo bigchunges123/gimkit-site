@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gimkit Server Creator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #serverList {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .ul{
+          list-style-type: none;
+          padding: 0;
+        }
+
+        .li {
+          border-bottom: 1px solid #eee;
+          padding: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gimkit Server Creator</h1>
+
+    <form id="serverForm">
+        <label for="gameCode">Game Code:</label>
+        <input type="text" id="gameCode" name="gameCode" required>
+
+        <label for="energyGame">Energy Game Code:</label>
+        <input type="text" id="energyGame" name="energyGame" required>
+
+        <label for="kit">Kit:</label>
+        <select id="kit" name="kit">
+            <option value="Classic">Classic</option>
+            <option value="Snowball">Snowball</option>
+            <option value="Tag">Tag</option>
+        </select>
+
+        <label for="duration">Duration (minutes):</label>
+        <input type="number" id="duration" name="duration" required>
+
+        <button type="button" onclick="createServer()">Create Server</button>
+    </form>
+
+    <h2>Active Servers</h2>
+    <div id="serverList">
+        <ul id="activeServerList"></ul>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY", // Replace with your API key
+            authDomain: "YOUR_AUTH_DOMAIN", // Replace with your auth domain
+            projectId: "YOUR_PROJECT_ID", // Replace with your project ID
+            storageBucket: "YOUR_STORAGE_BUCKET.appspot.com", // Replace with your storage bucket
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Replace with your sender ID
+            appId: "YOUR_APP_ID", // Replace with your app ID
+            measurementId: "YOUR_MEASUREMENT_ID" // Replace with your measurement ID
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.createServer = async function() {
+            const gameCode = document.getElementById("gameCode").value;
+            const kit = document.getElementById("kit").value;
+            const duration = parseInt(document.getElementById("duration").value);
+            const energyGame = document.getElementById("energyGame").value;
+
+            try {
+                await addDoc(collection(db, "servers"), {
+                    gameCode: gameCode,
+                    kit: kit,
+                    duration: duration,
+                    energyGame: energyGame,
+                    createdAt: serverTimestamp(),
+                    active: true,
+                });
+
+                document.getElementById("serverForm").reset();
+            } catch (error) {
+                console.error("Error creating server:", error);
+                alert("Failed to create server. Please try again.");
+            }
+        };
+
+        function displayActiveServers() {
+            const serversCollection = collection(db, "servers");
+            const q = query(serversCollection, where("active", "==", true));
+
+            onSnapshot(q, (snapshot) => {
+                const serverList = document.getElementById("activeServerList");
+                serverList.innerHTML = "";
+
+                snapshot.forEach((doc) => {
+                    const serverData = doc.data();
+                    const newServer = document.createElement("li");
+                    newServer.textContent = `Game Code: ${serverData.gameCode}, Energy Game Code: ${serverData.energyGame}, Kit: ${serverData.kit}, Duration: ${serverData.duration} minutes`;
+                    serverList.appendChild(newServer);
+                });
+            });
+        }
+
+        displayActiveServers();
+
+    </script>
+</body>
+</html>
