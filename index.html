@@ -1,118 +1,164 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Gimkit Server maker</title>
+    <title>Gimkit Server Creator 🎮✨</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 20px;
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         form {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
         }
 
         input[type="text"],
         input[type="number"],
         select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 16px;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #28a745;
             color: white;
-            padding: 10px 15px;
+            padding: 15px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
         }
 
         #serverList {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .ul{
-          list-style-type: none;
-          padding: 0;
+        ul {
+            list-style: none;
+            padding: 0;
         }
 
-        .li {
-          border-bottom: 1px solid #eee;
-          padding: 8px 0;
+        li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        #testButton {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .server-details {
+            flex-grow: 1;
+        }
+
     </style>
 </head>
 <body>
-    <h1>Gimkit Server Creator</h1>
+    <h1>Gimkit Server Creator 🎮✨</h1>
 
     <form id="serverForm">
-        <label for="gameCode">Game Code:</label>
+        <label for="gameCode">Game Code: 🔑</label>
         <input type="text" id="gameCode" name="gameCode" required>
 
-        <label for="energyGame">Energy Game Code:</label>
+        <label for="energyGame">Energy Game Code: ⚡</label>
         <input type="text" id="energyGame" name="energyGame" required>
 
-        <label for="kit">Kit:</label>
+        <label for="kit">Kit: 🎒</label>
         <select id="kit" name="kit">
-            <option value="Classic">Classic</option>
-            <option value="Snowball">Snowball</option>
-            <option value="Tag">Tag</option>
+            <option value="Classic">Classic 🕹️</option>
+            <option value="Snowball">Snowball ❄️</option>
+            <option value="Tag">Tag 🏷️</option>
         </select>
 
-        <label for="duration">Duration (minutes):</label>
+        <label for="duration">Duration (minutes): ⏱️</label>
         <input type="number" id="duration" name="duration" required>
 
-        <button type="button" onclick="createServer()">Create Server</button>
+        <button type="button" onclick="createServer()">Create Server ✅🚀</button>
     </form>
 
-    <h2>Active Servers</h2>
+    <h2>Active Servers 🌐👀</h2>
     <div id="serverList">
         <ul id="activeServerList"></ul>
     </div>
 
-    <button id="testButton">Test Firestore</button>
+    <button id="testButton">Test Firestore 🧪🔬</button>
 
     <script type="module">
+        // ... (Your Firebase initialization and other JavaScript code here) ...
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
         const firebaseConfig = {
-              apiKey: "AIzaSyA9oJ0Ax7xNNAReuDz9Msn4kuLRTxNo2kc",
-              authDomain: "gimkit-312b0.firebaseapp.com",
-              projectId: "gimkit-312b0",
-              storageBucket: "gimkit-312b0.firebasestorage.app",
-              messagingSenderId: "657884664755",
-              appId: "1:657884664755:web:86ccedd115e61aa592f1c6",
-              measurementId: "G-MYTLQGBQD4"
-
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            measurementId: "YOUR_MEASUREMENT_ID"
         };
-            
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         window.createServer = async function() {
+            // ... (Your createServer function here) ...
             const gameCode = document.getElementById("gameCode").value;
             const kit = document.getElementById("kit").value;
             const duration = parseInt(document.getElementById("duration").value);
             const energyGame = document.getElementById("energyGame").value;
 
             try {
-                console.log("Attempting to add server:", { gameCode, kit, duration, energyGame }); //added log
+                console.log("Attempting to add server:", { gameCode, kit, duration, energyGame });
                 await addDoc(collection(db, "servers"), {
                     gameCode: gameCode,
                     kit: kit,
@@ -121,7 +167,7 @@
                     createdAt: serverTimestamp(),
                     active: true,
                 });
-                console.log("Server added successfully"); // added log
+                console.log("Server added successfully");
                 document.getElementById("serverForm").reset();
             } catch (error) {
                 console.error("Error creating server:", error);
@@ -130,6 +176,7 @@
         };
 
         function displayActiveServers() {
+            // ... (Your displayActiveServers function here) ...
             const serversCollection = collection(db, "servers");
             const q = query(serversCollection, where("active", "==", true));
 
@@ -140,7 +187,7 @@
                 snapshot.forEach((doc) => {
                     const serverData = doc.data();
                     const newServer = document.createElement("li");
-                    newServer.textContent = `Game Code: ${serverData.gameCode}, Energy Game Code: ${serverData.energyGame}, Kit: ${serverData.kit}, Duration: ${serverData.duration} minutes`;
+                    newServer.innerHTML = `<div class="server-details">Game Code: ${serverData.gameCode} 🔑, Energy Game Code: ${serverData.energyGame} ⚡, Kit: ${serverData.kit} 🎒, Duration: ${serverData.duration} minutes ⏱️</div>`;
                     serverList.appendChild(newServer);
                 });
             });
@@ -151,14 +198,13 @@
         document.getElementById("testButton").addEventListener("click", async () => {
             try {
                 await addDoc(collection(db, "testCollection"), {
-                    testField: "Test Value"
+                    testField: "Test Value 🧪"
                 });
                 console.log("Test document added successfully.");
             } catch (error) {
                 console.error("Error adding test document:", error);
             }
         });
-
     </script>
 </body>
 </html>
